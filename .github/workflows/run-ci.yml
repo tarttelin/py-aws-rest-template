@@ -30,7 +30,14 @@ jobs:
       
     - name: Run tests
       run: |
-        pipenv run pytest
+        mkdir -p 
+        pipenv run pytest --junitxml=test-report.xml
+
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: "test-report.xml"
 
     - name: Run lint
       run: | 
