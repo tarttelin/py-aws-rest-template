@@ -30,7 +30,6 @@ jobs:
       
     - name: Run tests
       run: |
-        mkdir -p 
         pipenv run pytest --junitxml=test-report.xml
 
     - name: Publish Unit Test Results
