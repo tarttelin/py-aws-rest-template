@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.16",
-    "serverless": "^3.17.0",
+    "serverless": "^3.17.0"
+  },
+  "devDependencies": {
     "serverless-offline": "^8.7.0"
   }
 }

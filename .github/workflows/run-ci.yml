@@ -36,11 +36,12 @@ jobs:
       run: | 
         pipenv run flake8 --ignore=E501 tests api
 
-
-    - name: serverless deploy
+    - name: Install serverless plugins and deploy
       uses: serverless/github-action@v3
       with:
-        args: deploy
+        args: -c "serverless plugin install --name serverless-offline && deploy --stage=dev --verbose"
+        entrypoint: /bin/bash
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        SLS_DEBUG: 1
