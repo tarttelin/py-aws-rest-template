@@ -1,4 +1,4 @@
-from api.handler import handle_http, handle_rest
+from api.handler import handle_http
 import json
 import pytest
 from dataclasses import dataclass
