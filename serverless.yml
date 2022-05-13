@@ -1,0 +1,59 @@
+service: py-rest-template
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: python3.9
+  stage: '${opt:stage, ''dev''}'
+  region: eu-west-2
+  apiGateway:  
+    apiKeys:
+      - test-key
+  logs:
+    httpApi: true
+
+package:
+  patterns:
+    - '!**/**'
+    - 'api/**'
+    - '!**/__pycache__/**'
+
+functions:
+  hello:
+    handler: api.handler.handle_http
+    layers:
+      - arn:aws:lambda:${aws:region}:017000801446:layer:AWSLambdaPowertoolsPython:19
+    events:
+      - httpApi:
+          path: /
+          method: get
+  greeting:
+    handler: api.handler.handle_rest
+    layers:
+      - arn:aws:lambda:${aws:region}:017000801446:layer:AWSLambdaPowertoolsPython:19
+    events:
+      - http:
+          path: /secure
+          method: post
+          private: true
+
+
+
+# you can add CloudFormation resource templates here
+resources:
+  Resources:
+    DemoApiKey:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Description: "A 30 day api key for testing"
+        Name: "demo-api-key"
+        Type: String
+        Value: "value of api key"
+  Outputs:
+    RestApi:
+      Value:
+        Ref: ApiGatewayRestApi
