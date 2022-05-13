@@ -34,7 +34,7 @@ jobs:
 
     - name: Run lint
       run: | 
-        pipenv run flake8 --ignore=E501 tests handler.py
+        pipenv run flake8 --ignore=E501 tests api
 
 
     - name: serverless deploy
