@@ -20,12 +20,6 @@ def test_hello(context):
     assert result == {"message": "Hello", "input": "stuff"}
 
 
-def test_greeting(context):
-    result = json.loads(handle_rest(create_event(
-        method="POST", body='{"message": "Dave"}'), context)['body'])
-    assert result == {"message": "Hello Dave"}
-
-
 def create_event(path="/", method="GET", body=""):
     return {
         "rawPath": path,
